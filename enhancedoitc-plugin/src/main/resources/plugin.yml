@@ -1,0 +1,5 @@
+name: EnhancedOITC
+version: '${project.version}'
+main: tech.zmario.enhancedoitc.EnhancedOITC
+authors: [zMario]
+depend: [SlimeWorldManager]

@@ -1,0 +1,7 @@
+redis-uri: redis://localhost:6379 # Redis URI (used for messaging between connector and slaves)
+mysql: # MySQL's credentials (used for storing data)
+  host: localhost
+  port: 3306
+  username: root
+  password: password
+  database: enhancedoitc

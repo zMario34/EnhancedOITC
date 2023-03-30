@@ -1,0 +1,36 @@
+not-enough-players: '&cWe don''t have enough players! Start cancelled.'
+game-starting: '&eThe game starts in &b%time%&e %second-or-seconds%!'
+game-starting-full: '&e&lGame full! The game starts in &b%time%&e %second-or-seconds%!'
+game-started: '&eThe game has started! Fight for the win!'
+join-denied: '&cYou can''t join the game right now!'
+join-denied-full: '&cThe game is full!'
+join-message: '&f%player% &ejoined the game! &7(&e%players%&7/&e%max-players%&7)'
+leave-message: '&f%player% &eleft the game! &7(&e%players%&7/&e%max-players%&7)'
+player-death: '&f%player% &ewas killed by %killer%!'
+game-end:
+  - '&7&m-----------------------------------------'
+  - '       &a&lOITC &7- &c&lGame over!'
+  - '      &e%first-name% &ewon the game!'
+  - ''
+  - ' &e&l1. &e%first-name% &7- &e%first-kills% &7kills'
+  - ' &e&l2. &e%second-name% &7- &e%second-kills% &7kills'
+  - ' &e&l3. &e%third-name% &7- &e%third-kills% &7kills'
+  - ''
+  - '&7&m-----------------------------------------'
+titles:
+  # Example:
+  #  '&aFirst line;&aSecond line!'
+  #  '&bFirst line;&bSecond line;10;20;10' // Format: title;subtitle;fadeIn;stay;fadeOut
+  not-enough-players: '&cNot enough players!'
+  game-starting: '&a%time%'
+  game-started: '&a&lGO!'
+  game-end: '&c&lGame over!'
+sounds: # Default sounds (1.8.8) - Format: sound;pitch;volume
+  not-enough-players: NOTE_BASS
+  game-starting: NOTE_PLING
+  game-started: NOTE_PLING;2;2
+  game-end: NOTE_BASS;2;2
+placeholders:
+  seconds: 'seconds'
+  second: 'second'
+  none: 'none'

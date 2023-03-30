@@ -1,0 +1,15 @@
+server-name: game1
+redis-uri: redis://localhost:6379 # Redis URI (used for messaging between connector and slaves)
+mysql: # MySQL's credentials (used for storing data)
+  host: localhost
+  port: 3306
+  username: root
+  password: password
+  database: enhancedoitc
+slime-loader-type: file # Where should worlds be saved (using SlimeWorldManager)? You can use file, mongo or mysql (set it in the SWM configuration)
+game:
+  win-kills: 30 # How many kills are needed to win the game
+  countdowns:
+    lobby: 30 # Seconds before the game starts
+    full: 10 # Seconds before the game starts when the game is full
+    restart: 10 # Seconds to wait after the game ends before the game is reset
