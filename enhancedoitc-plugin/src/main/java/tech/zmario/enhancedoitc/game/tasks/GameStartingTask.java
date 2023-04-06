@@ -3,12 +3,12 @@ package tech.zmario.enhancedoitc.game.tasks;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import tech.zmario.enhancedoitc.game.enums.MessagesConfiguration;
+import tech.zmario.enhancedoitc.common.enums.GameState;
+import tech.zmario.enhancedoitc.common.objects.Placeholder;
 import tech.zmario.enhancedoitc.game.EnhancedOITC;
 import tech.zmario.enhancedoitc.game.arena.Arena;
-import tech.zmario.enhancedoitc.common.enums.GameState;
+import tech.zmario.enhancedoitc.game.enums.MessagesConfiguration;
 import tech.zmario.enhancedoitc.game.enums.SettingsConfiguration;
-import tech.zmario.enhancedoitc.common.objects.Placeholder;
 
 import java.util.UUID;
 
@@ -54,8 +54,8 @@ public class GameStartingTask extends BukkitRunnable {
             MessagesConfiguration.GAME_STARTING_FULL.broadcast(arena, plugin,
                     new Placeholder("time", countdown + ""),
                     new Placeholder("second-or-seconds", (countdown == 1 ?
-                            MessagesConfiguration.PLACEHOLDER_SECOND.getString(plugin) :
-                            MessagesConfiguration.PLACEHOLDER_SECONDS.getString(plugin))));
+                            MessagesConfiguration.PLACEHOLDER_SECOND.getString(plugin, null) :
+                            MessagesConfiguration.PLACEHOLDER_SECONDS.getString(plugin, null))));
             return;
         }
 
@@ -66,8 +66,8 @@ public class GameStartingTask extends BukkitRunnable {
             if (!SettingsConfiguration.GAME_START_BROADCAST_TIMES.getList(plugin).contains(countdown + "")) return;
             Placeholder time = new Placeholder("time", countdown + "");
             Placeholder secondOrSeconds = new Placeholder("second-or-seconds", (countdown == 1 ?
-                    MessagesConfiguration.PLACEHOLDER_SECOND.getString(plugin) :
-                    MessagesConfiguration.PLACEHOLDER_SECONDS.getString(plugin)));
+                    MessagesConfiguration.PLACEHOLDER_SECOND.getString(plugin, null) :
+                    MessagesConfiguration.PLACEHOLDER_SECONDS.getString(plugin, null)));
 
             for (UUID uuid : arena.getPlayers()) {
                 Player player = plugin.getServer().getPlayer(uuid);

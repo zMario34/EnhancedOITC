@@ -5,3 +5,4 @@ mysql: # MySQL's credentials (used for storing data)
   username: root
   password: password
   database: enhancedoitc
+lobby-server: oitclobby # Lobby server name

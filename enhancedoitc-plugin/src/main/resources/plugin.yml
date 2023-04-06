@@ -1,5 +1,6 @@
 name: EnhancedOITC
-version: '${project.version}'
-main: tech.zmario.enhancedoitc.EnhancedOITC
+version: 1.0
+main: tech.zmario.enhancedoitc.game.EnhancedOITC
 authors: [zMario]
 depend: [SlimeWorldManager]
+softdepend: [PlaceholderAPI]

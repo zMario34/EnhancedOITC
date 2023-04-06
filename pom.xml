@@ -48,6 +48,40 @@
                             </goals>
                             <configuration>
                                 <createDependencyReducedPom>false</createDependencyReducedPom>
+                                <relocations>
+                                    <relocation>
+                                        <pattern>org.slf4j</pattern>
+                                        <shadedPattern>tech.zmario.enhancedoitc.common.libs.slf4j</shadedPattern>
+                                    </relocation>
+                                    <relocation>
+                                        <pattern>org.reactivestreams</pattern>
+                                        <shadedPattern>tech.zmario.enhancedoitc.common.libs.reactivestreams</shadedPattern>
+                                    </relocation>
+                                    <relocation>
+                                        <pattern>reactor</pattern>
+                                        <shadedPattern>tech.zmario.enhancedoitc.common.libs.reactor</shadedPattern>
+                                    </relocation>
+                                    <relocation>
+                                        <pattern>io.netty</pattern>
+                                        <shadedPattern>tech.zmario.enhancedoitc.common.libs.netty</shadedPattern>
+                                    </relocation>
+                                    <relocation>
+                                        <pattern>io.lettuce.core</pattern>
+                                        <shadedPattern>tech.zmario.enhancedoitc.common.libs.lettuce</shadedPattern>
+                                    </relocation>
+                                    <relocation>
+                                        <pattern>fr.minuskube.netherboard</pattern>
+                                        <shadedPattern>tech.zmario.enhancedoitc.common.libs.netherboard</shadedPattern>
+                                    </relocation>
+                                    <relocation>
+                                        <pattern>com.zaxxer.hikari</pattern>
+                                        <shadedPattern>tech.zmario.enhancedoitc.common.libs.hikaricp</shadedPattern>
+                                    </relocation>
+                                    <relocation>
+                                        <pattern>com.jonahseguin.drink</pattern>
+                                        <shadedPattern>tech.zmario.enhancedoitc.common.libs.drink</shadedPattern>
+                                    </relocation>
+                                </relocations>
                             </configuration>
                         </execution>
                     </executions>
@@ -71,9 +105,27 @@
             <id>sonatype-oss-snapshots1</id>
             <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <repository>
+            <id>spigotmc-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -84,12 +136,30 @@
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
             <version>4.0.3</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.lettuce</groupId>
             <artifactId>lettuce-core</artifactId>
             <version>6.2.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.11.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>fr.minuskube</groupId>
+            <artifactId>netherboard-bukkit</artifactId>
+            <version>1.2.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jonahseguin</groupId>
+            <artifactId>drink</artifactId>
+            <version>1b60eff7e0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

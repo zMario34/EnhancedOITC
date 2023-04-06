@@ -24,6 +24,7 @@ public class SerializedObjectCodec implements RedisCodec<String, Object> {
             ObjectInputStream is = new ObjectInputStream(new ByteArrayInputStream(array));
             return is.readObject();
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -41,6 +42,7 @@ public class SerializedObjectCodec implements RedisCodec<String, Object> {
             os.writeObject(value);
             return ByteBuffer.wrap(bytes.toByteArray());
         } catch (IOException e) {
+            e.printStackTrace();
             return ByteBuffer.wrap(new byte[0]);
         }
     }

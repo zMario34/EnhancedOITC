@@ -10,17 +10,14 @@ import java.util.List;
 public enum SettingsConfiguration {
 
     SERVER_NAME("server-name"),
+    LOBBY_SERVER("lobby-server"),
     REDIS_URI("redis-uri"),
-
-    MYSQL_HOST("mysql.host"),
-    MYSQL_PORT("mysql.port"),
-    MYSQL_USERNAME("mysql.username"),
-    MYSQL_PASSWORD("mysql.password"),
 
     LOADER_TYPE("slime-loader-type"),
 
     LOBBY_LOCATION("lobby-location"),
     GAME_WIN_KILLS("game.win-kills"),
+    GAME_ARROW_WAIT_TIME("game.arrow-wait-time"),
     GAME_LOBBY_COUNTDOWN("game.countdowns.lobby"),
     GAME_FULL_COUNTDOWN("game.countdowns.full"),
     GAME_START_COUNTDOWN("game.countdowns.start"),

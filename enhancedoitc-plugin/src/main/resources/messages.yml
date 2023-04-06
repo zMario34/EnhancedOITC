@@ -2,11 +2,9 @@ not-enough-players: '&cWe don''t have enough players! Start cancelled.'
 game-starting: '&eThe game starts in &b%time%&e %second-or-seconds%!'
 game-starting-full: '&e&lGame full! The game starts in &b%time%&e %second-or-seconds%!'
 game-started: '&eThe game has started! Fight for the win!'
-join-denied: '&cYou can''t join the game right now!'
-join-denied-full: '&cThe game is full!'
 join-message: '&f%player% &ejoined the game! &7(&e%players%&7/&e%max-players%&7)'
 leave-message: '&f%player% &eleft the game! &7(&e%players%&7/&e%max-players%&7)'
-player-death: '&f%player% &ewas killed by %killer%!'
+player-death: '&f%player% &ewas killed by &f%killer%!'
 game-end:
   - '&7&m-----------------------------------------'
   - '       &a&lOITC &7- &c&lGame over!'
@@ -17,6 +15,75 @@ game-end:
   - ' &e&l3. &e%third-name% &7- &e%third-kills% &7kills'
   - ''
   - '&7&m-----------------------------------------'
+commands:
+  help:
+    user:
+      - '&7&m-----------------------------------------'
+      - ' &a&lEnhanced OITC &7- &aHelp'
+      - ''
+      - ' &a/enhancedoitc help &7- &fShows this help'
+      - ' &a/enhancedoitc leave &7- &fLeave the game'
+      - ''
+      - '&7&m-----------------------------------------'
+    admin:
+      - '&7&m-----------------------------------------'
+      - ' &a&lEnhanced OITC &7- &aHelp'
+      - ''
+      - ' &a/enhancedoitc help &7- &fShows this help'
+      - ' &a/enhancedoitc leave &7- &fLeave the game'
+      - ' &a/enhancedoitc reload &7- &fReloads the plugin'
+      - ' &a/enhancedoitc setup <name> &7- &fSetup an arena'
+      - ''
+      - '&7&m-----------------------------------------'
+  reload-success: '&aThe plugin has been reloaded!'
+  setup:
+    in-arena: '&cYou are playing in an arena!'
+    already-in-setup: '&cYou are already in setup mode!'
+    not-in-setup: '&cYou are not in setup mode!'
+  leave:
+    not-in-arena: '&cYou are not in a game!'
+chat-format:
+  waiting: '&7%player% &8» &f%message%'
+  playing: '&7%player% &8» &f%message%'
+  ending: '&7%player% &8» &f%message%'
+scoreboard:
+  title: '&a&lOne In The Chamber'
+  lines:
+    waiting:
+      - '&7#%id%'
+      - '&r'
+      - ' &8• &fMap: &a%arena%'
+      - ' &8• &fPlayers: &a%players%&f/&a%max-players%'
+      - ''
+      - ' &fWaiting for players...'
+      - '&7'
+      - '&azmario.tech'
+    starting:
+      - '&7#%id%'
+      - '&r'
+      - ' &8• &fMap: &a%arena%'
+      - ' &8• &fPlayers: &a%players%&f/&a%max-players%'
+      - '&f'
+      - ' &fGame starting in &a%time%&f %second-or-seconds%...'
+      - '&7'
+      - '&azmario.tech'
+    playing:
+      - '&7#%id%'
+      - '&r'
+      - ' &8• &6%first-name% &f- &a%first-kills% &fkills'
+      - ' &8• &e%second-name% &f- &a%second-kills% &fkills'
+      - ' &8• &7%third-name% &f- &a%third-kills% &fkills'
+      - '&7'
+      - '&azmario.tech'
+    ending:
+      - '&7#%id%'
+      - '&r'
+      - ' &8» &6%first-name% &fwon the game!'
+      - '&f'
+      - ' &8• &e%second-name% &f- &a%second-kills% &fkills'
+      - ' &8• &7%third-name% &f- &a%third-kills% &fkills'
+      - '&7'
+      - '&azmario.tech'
 titles:
   # Example:
   #  '&aFirst line;&aSecond line!'
@@ -26,11 +93,14 @@ titles:
   game-started: '&a&lGO!'
   game-end: '&c&lGame over!'
 sounds: # Default sounds (1.8.8) - Format: sound;pitch;volume
-  not-enough-players: NOTE_BASS
-  game-starting: NOTE_PLING
-  game-started: NOTE_PLING;2;2
-  game-end: NOTE_BASS;2;2
+  not-enough-players: ANVIL_LAND;1;1
+  player-join: NOTE_BASS
+  game-starting: NOTE_PLING;1;1
+  game-started: LEVEL_UP;2;2
+  game-end: AMBIENCE_THUNDER
+  player-kill: LEVEL_UP
+  player-death: ANVIL_LAND
 placeholders:
   seconds: 'seconds'
   second: 'second'
-  none: 'none'
+  none: 'None'

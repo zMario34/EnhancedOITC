@@ -1,18 +1,19 @@
 package tech.zmario.enhancedoitc.game.manager;
 
-import com.google.common.collect.ArrayListMultimap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import tech.zmario.enhancedoitc.game.workload.impl.TeleportablePlayerWorkload;
+import tech.zmario.enhancedoitc.common.enums.GameState;
+import tech.zmario.enhancedoitc.common.redis.packets.impl.GameUpdatePacket;
 import tech.zmario.enhancedoitc.game.EnhancedOITC;
 import tech.zmario.enhancedoitc.game.arena.Arena;
-import tech.zmario.enhancedoitc.common.enums.GameState;
 import tech.zmario.enhancedoitc.game.enums.MessagesConfiguration;
-import tech.zmario.enhancedoitc.game.objects.PlayerCache;
+import tech.zmario.enhancedoitc.game.enums.SettingsConfiguration;
+import tech.zmario.enhancedoitc.game.objects.Kit;
+import tech.zmario.enhancedoitc.game.workload.impl.TeleportablePlayerWorkload;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -28,7 +29,7 @@ public class ArenaManager {
 
     private final Map<String, Arena> enableQueue = new ConcurrentHashMap<>();
 
-    private final ArrayListMultimap<Arena, PlayerCache> leaderboards = ArrayListMultimap.create();
+    private int currentArenaId = 1;
 
     public Optional<Arena> getArena(String name) {
         return Optional.ofNullable(arenas.get(name));
@@ -36,14 +37,6 @@ public class ArenaManager {
 
     public Optional<Arena> getArena(UUID uuid) {
         return Optional.ofNullable(arenasByPlayer.get(uuid));
-    }
-
-    public boolean isInArena(Player player) {
-        return arenasByPlayer.containsKey(player.getUniqueId());
-    }
-
-    public int getOnlinePlayers() {
-        return arenasByPlayer.size();
     }
 
     public void addInQueue(Arena arena) {
@@ -55,6 +48,7 @@ public class ArenaManager {
     }
 
     public void startGame(Arena arena) {
+        Kit kit = arena.getKit();
         Queue<Location> spawnLocations = new LinkedList<>(arena.getSpawnLocations());
 
         arena.setGameState(GameState.PLAYING);
@@ -72,10 +66,27 @@ public class ArenaManager {
 
             plugin.getWorkloadThread().addWorkload(new TeleportablePlayerWorkload(player, location));
 
+            player.getInventory().setContents(kit.getItems());
+            player.getInventory().setArmorContents(kit.getArmor());
+
             MessagesConfiguration.GAME_STARTED.send(player, plugin);
-            MessagesConfiguration.TITLE_GAME_STARTED.send(player, plugin);
+            MessagesConfiguration.TITLE_GAME_STARTED.sendTitle(player, plugin);
             MessagesConfiguration.SOUND_GAME_STARTED.playSound(player, plugin);
         });
 
+
+        GameUpdatePacket packet = new GameUpdatePacket(SettingsConfiguration.SERVER_NAME.getString(plugin),
+                arena.getName(), arena.getGameState(), arena.getPlayers().size());
+
+        plugin.getRedisHandler().publish(packet.getChannel(), packet);
+    }
+
+    public void disable() {
+        arenas.values().forEach(Arena::sendDisconnectPacket);
+        arenas.clear();
+    }
+
+    public int getNextArenaId() {
+        return currentArenaId++;
     }
 }

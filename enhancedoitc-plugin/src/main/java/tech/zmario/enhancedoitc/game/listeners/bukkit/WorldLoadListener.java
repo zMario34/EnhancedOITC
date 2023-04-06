@@ -1,4 +1,4 @@
-package tech.zmario.enhancedoitc.game.listeners.system;
+package tech.zmario.enhancedoitc.game.listeners.bukkit;
 
 import lombok.RequiredArgsConstructor;
 import org.bukkit.World;

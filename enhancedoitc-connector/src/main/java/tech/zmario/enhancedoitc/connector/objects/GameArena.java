@@ -3,9 +3,12 @@ package tech.zmario.enhancedoitc.connector.objects;
 import lombok.Data;
 import org.bukkit.entity.Player;
 import tech.zmario.enhancedoitc.common.enums.GameState;
-import tech.zmario.enhancedoitc.common.redis.packets.impl.GameJoinPacket;
+import tech.zmario.enhancedoitc.common.redis.packets.impl.PlayerJoinPacket;
+import tech.zmario.enhancedoitc.common.utils.Utils;
 import tech.zmario.enhancedoitc.connector.OITCConnector;
 import tech.zmario.enhancedoitc.connector.enums.MessagesConfiguration;
+
+import java.util.Collections;
 
 @Data
 public class GameArena {
@@ -29,12 +32,13 @@ public class GameArena {
             return;
         }
 
-        GameJoinPacket joinPacket = new GameJoinPacket(player.getUniqueId(), server, name);
+        PlayerJoinPacket joinPacket = new PlayerJoinPacket(player.getUniqueId(), server, name);
 
-        plugin.getRedisHandler().publish("enhancedoitc:connection", joinPacket);
+        plugin.getRedisHandler().publish(joinPacket.getChannel(), joinPacket);
+        Utils.sendPlayersToServer(plugin, server, Collections.singletonList(player));
     }
 
     public void removePlayer(Player player) {
-        // TODO
+
     }
 }

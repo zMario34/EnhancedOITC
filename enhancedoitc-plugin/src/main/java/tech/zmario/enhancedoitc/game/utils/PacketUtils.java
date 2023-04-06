@@ -2,31 +2,14 @@ package tech.zmario.enhancedoitc.game.utils;
 
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import tech.zmario.enhancedoitc.game.EnhancedOITC;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 @UtilityClass
-public class Utils {
+public class PacketUtils {
 
     public final String VERSION = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-
-    private int currentGameId = 0;
-
-    public final Executor POOL_EXECUTOR = Executors.newFixedThreadPool(2);
-
-    public String colorize(String string) {
-        return ChatColor.translateAlternateColorCodes('&', string);
-    }
 
     // yeah, reflection is bad, but it's the only way to do it, I don't want to make all the wrappers for only a packet
     public void sendTitle(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {
@@ -81,26 +64,5 @@ public class Utils {
         } catch (Exception e) {
             throw new RuntimeException("Unable to send packet " + packet, e);
         }
-    }
-
-    public CompletableFuture<Void> sendPlayersToServer(EnhancedOITC plugin, String server, List<Player> players) {
-        ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
-
-        try (DataOutputStream out = new DataOutputStream(byteOutput)) {
-            out.writeUTF("Connect");
-            out.writeUTF(server);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return CompletableFuture.failedFuture(e);
-        }
-
-        for (Player player : players)
-            player.sendPluginMessage(plugin, "BungeeCord", byteOutput.toByteArray());
-
-        return CompletableFuture.completedFuture(null);
-    }
-
-    public int getNextGameId() {
-        return currentGameId++;
     }
 }

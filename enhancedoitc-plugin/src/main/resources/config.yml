@@ -1,14 +1,16 @@
-server-name: game1
+server-name: game1 # Identifier of the server
+lobby-server: oitclobby # Lobby server name
 redis-uri: redis://localhost:6379 # Redis URI (used for messaging between connector and slaves)
-mysql: # MySQL's credentials (used for storing data)
-  host: localhost
-  port: 3306
-  username: root
-  password: password
-  database: enhancedoitc
 slime-loader-type: file # Where should worlds be saved (using SlimeWorldManager)? You can use file, mongo or mysql (set it in the SWM configuration)
 game:
+  start-broadcast-times: # When should the game broadcast the start message?
+    - 10
+    - 5
+    - 3
+    - 2
+    - 1
   win-kills: 30 # How many kills are needed to win the game
+  arrow-wait-time: 10 # How many seconds should players wait before they receive their arrow back
   countdowns:
     lobby: 30 # Seconds before the game starts
     full: 10 # Seconds before the game starts when the game is full

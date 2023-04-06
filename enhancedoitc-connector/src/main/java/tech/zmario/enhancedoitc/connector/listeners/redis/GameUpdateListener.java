@@ -1,9 +1,10 @@
-package tech.zmario.enhancedoitc.connector.listeners;
+package tech.zmario.enhancedoitc.connector.listeners.redis;
 
 import lombok.RequiredArgsConstructor;
 import tech.zmario.enhancedoitc.common.redis.listener.PubSubListener;
 import tech.zmario.enhancedoitc.common.redis.packets.Packet;
 import tech.zmario.enhancedoitc.common.redis.packets.impl.GameConnectPacket;
+import tech.zmario.enhancedoitc.common.redis.packets.impl.GameDisconnectPacket;
 import tech.zmario.enhancedoitc.common.redis.packets.impl.GameUpdatePacket;
 import tech.zmario.enhancedoitc.connector.OITCConnector;
 import tech.zmario.enhancedoitc.connector.objects.GameArena;
@@ -15,7 +16,6 @@ public class GameUpdateListener extends PubSubListener<String, Object> {
 
     @Override
     public void message(String channel, Object object) {
-        if (!(object instanceof Packet)) return;
         Packet packet = (Packet) object;
 
         if (packet instanceof GameUpdatePacket) {
@@ -28,6 +28,10 @@ public class GameUpdateListener extends PubSubListener<String, Object> {
                     connectPacket.getArenaName(), connectPacket.getMaxPlayers());
 
             plugin.getArenaManager().addArena(arena);
+        } else if (packet instanceof GameDisconnectPacket) {
+            GameDisconnectPacket cancelPacket = (GameDisconnectPacket) packet;
+
+            plugin.getArenaManager().removeArena(cancelPacket.getArenaName());
         }
     }
 }

@@ -1,7 +1,6 @@
 package tech.zmario.enhancedoitc.game.objects;
 
 import lombok.Getter;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -34,15 +33,8 @@ public class ArenaConfig {
             config = create();
         } catch (IOException e) {
             e.printStackTrace();
-            plugin.getLogger().severe("Impossibile creare il file dell'arena: " + path);
+            plugin.getLogger().severe("Unable to create arena file: " + path);
         }
-
-        Configuration config = getConfig();
-
-        config.addDefault("max-players", 6);
-        config.addDefault("spawn-protection", 3);
-
-        config.options().copyDefaults(true);
 
         save();
     }
