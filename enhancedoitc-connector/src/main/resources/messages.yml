@@ -1,0 +1,18 @@
+no-arenas-available: '&cThere are no arenas available!'
+join-denied: '&cYou can''t join the game right now!'
+join-denied-full: '&cThe game is full!'
+scoreboard:
+  title: '&a&lOne In The Chamber'
+  lines:
+    - ''
+    - '&azmario.tech'
+commands:
+  reload-success: '&aThe plugin has been reloaded!'
+  help:
+    - '&7&m-----------------------------------------'
+    - ' &a&lEnhanced OITC &7- &aHelp'
+    - ''
+    - ' &e/enhancedoitc help &7- &fShows this help'
+    - ' &e/enhancedoitc reload &7- &fReloads the plugin'
+    - ' &e/enhancedoitc join (arena) &7- &fJoin a game'
+    - '&7&m-----------------------------------------'

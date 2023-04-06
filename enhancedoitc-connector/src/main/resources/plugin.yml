@@ -1,0 +1,4 @@
+name: EnhancedOITC-Connector
+version: 1.0
+main: tech.zmario.enhancedoitc.connector.OITCConnector
+authors: [zMario]
