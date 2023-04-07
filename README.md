@@ -1,6 +1,10 @@
 # EnhancedOITC
 An open-source, multiinstance-multiarena One In The Chamber minigame.
-Requires a MySQL and a Redis server to function properly. You need to use a proxy (like Velocity or BungeeCord) to switch server and arena to the player
+
+## Requirements to run
+* Redis and MySQL server
+* At least two Spigot servers with SlimeWorldManager enabled
+* A proxy like BungeeCord or Velocity
 
 ## Building
 We use Maven to handle dependencies & building.
