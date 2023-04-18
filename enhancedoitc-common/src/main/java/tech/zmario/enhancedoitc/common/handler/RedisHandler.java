@@ -12,6 +12,7 @@ import tech.zmario.enhancedoitc.common.objects.User;
 import tech.zmario.enhancedoitc.common.redis.codec.SerializedObjectCodec;
 import tech.zmario.enhancedoitc.common.redis.listener.PubSubListener;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletionStage;
 
@@ -50,7 +51,7 @@ public class RedisHandler {
         commands.hset("users", user.getUuid().toString(), gson.toJson(user));
     }
 
-    public CompletionStage<User> getUser(UUID uuid) {
-        return commands.hget("users", uuid.toString()).thenApply(s -> gson.fromJson(s, User.class));
+    public CompletionStage<Optional<User>> getUser(UUID uuid) {
+        return commands.hget("users", uuid.toString()).thenApply(s -> Optional.ofNullable(gson.fromJson(s, User.class)));
     }
 }

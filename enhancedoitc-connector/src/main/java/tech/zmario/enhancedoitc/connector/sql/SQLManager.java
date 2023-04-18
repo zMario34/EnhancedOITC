@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
@@ -46,22 +47,22 @@ public class SQLManager {
         }, executor);
     }
 
-    public CompletableFuture<User> getUser(UUID uuid) {
+    public CompletableFuture<Optional<User>> getUser(UUID uuid) {
         return CompletableFuture.supplyAsync(() -> {
             try (Connection connection = pool.getConnection();
                  PreparedStatement statement = connection.prepareStatement("SELECT * FROM user_data WHERE uuid = ?")) {
                 statement.setString(1, uuid.toString());
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
-                        return new User(uuid, resultSet.getInt("kills"), resultSet.getInt("deaths"),
-                                resultSet.getInt("wins"), resultSet.getInt("losses"));
+                        return Optional.of(new User(uuid, resultSet.getInt("kills"), resultSet.getInt("deaths"),
+                                resultSet.getInt("wins"), resultSet.getInt("losses")));
                     }
                 }
             } catch (SQLException ex) {
                 plugin.getLogger().log(Level.SEVERE, "Failed to get user with UUID " + uuid, ex);
             }
 
-            return null;
+            return Optional.empty();
         }, executor);
     }
 

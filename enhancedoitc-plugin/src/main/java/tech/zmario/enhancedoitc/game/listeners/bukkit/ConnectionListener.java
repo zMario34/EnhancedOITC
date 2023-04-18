@@ -38,7 +38,10 @@ public class ConnectionListener implements Listener {
         if (arenaOptional.isEmpty()) return;
 
         plugin.debug("Player " + player.getName() + " was added to the storage.");
-        plugin.getRedisHandler().getUser(uuid).thenAccept(user -> plugin.getStorage().addUser(user));
+        plugin.getRedisHandler().getUser(uuid).thenAccept(user -> {
+            user.ifPresentOrElse(value -> plugin.getStorage().addUser(value),
+                    () -> event.disallow(PlayerLoginEvent.Result.KICK_OTHER, ChatColor.RED + "Cannot load your data."));
+        });
     }
 
     @EventHandler

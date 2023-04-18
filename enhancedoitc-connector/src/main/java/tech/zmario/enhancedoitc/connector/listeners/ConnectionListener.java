@@ -24,8 +24,8 @@ public class ConnectionListener implements Listener {
         if (event.getLoginResult() != AsyncPlayerPreLoginEvent.Result.ALLOWED) return;
         UUID uuid = event.getUniqueId();
 
-        plugin.getSqlManager().getUser(uuid).thenAccept(sqlUser -> plugin.getRedisHandler().getUser(uuid).thenAccept(redisUser -> {
-            if (sqlUser == null) {
+        plugin.getSqlManager().getUser(uuid).thenAccept(sqlUserOptional -> plugin.getRedisHandler().getUser(uuid).thenAccept(redisUserOptional -> {
+            if (sqlUserOptional.isEmpty()) {
                 User user = new User(uuid, 0, 0, 0, 0);
 
                 plugin.getSqlManager().createUser(uuid);
@@ -33,15 +33,17 @@ public class ConnectionListener implements Listener {
                 plugin.getStorage().addUser(user);
                 return;
             }
+            User sqlUser = sqlUserOptional.get();
 
-            if (redisUser != null) {
-                plugin.getSqlManager().updateUser(redisUser);
-                plugin.getStorage().addUser(redisUser);
+            if (redisUserOptional.isEmpty()) {
+                plugin.getRedisHandler().updateUser(sqlUser);
+                plugin.getStorage().addUser(sqlUser);
                 return;
             }
+            User redisUser = redisUserOptional.get();
 
-            plugin.getRedisHandler().updateUser(sqlUser);
-            plugin.getStorage().addUser(sqlUser);
+            plugin.getSqlManager().updateUser(redisUser);
+            plugin.getStorage().addUser(redisUser);
         })).exceptionally(throwable -> {
             throwable.printStackTrace();
             return null;

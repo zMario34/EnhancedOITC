@@ -9,7 +9,6 @@ import com.grinderwolf.swm.api.world.properties.SlimePropertyMap;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import tech.zmario.enhancedoitc.common.utils.Utils;
 import tech.zmario.enhancedoitc.game.EnhancedOITC;
 import tech.zmario.enhancedoitc.game.enums.SettingsConfiguration;
 
@@ -59,7 +58,7 @@ public class WorldUtils {
                 }
 
                 return null;
-            }, Utils.POOL_EXECUTOR).get(2, TimeUnit.SECONDS);
+            }, plugin.getExecutor()).get(2, TimeUnit.SECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             e.printStackTrace();
             plugin.getLogger().severe("Error while loading world " + name + ": " + e.getMessage());

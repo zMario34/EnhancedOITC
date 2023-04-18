@@ -10,13 +10,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 @UtilityClass
 public class Utils {
-
-    public final Executor POOL_EXECUTOR = Executors.newFixedThreadPool(2);
 
     public String colorize(String string) {
         return ChatColor.translateAlternateColorCodes('&', string);

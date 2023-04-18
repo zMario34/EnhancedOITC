@@ -27,6 +27,10 @@ import tech.zmario.enhancedoitc.game.tasks.ScoreboardTask;
 import tech.zmario.enhancedoitc.game.workload.WorkloadThread;
 
 import java.io.File;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 
 @Getter
 public class EnhancedOITC extends JavaPlugin {
@@ -39,6 +43,8 @@ public class EnhancedOITC extends JavaPlugin {
     private RedisHandler redisHandler;
 
     private YamlConfiguration messages;
+
+    public final ExecutorService executor = Executors.newFixedThreadPool(2);
 
     @Override
     public void onEnable() {
@@ -72,6 +78,18 @@ public class EnhancedOITC extends JavaPlugin {
     @Override
     public void onDisable() {
         arenaManager.disable();
+
+        try {
+            executor.shutdown();
+            if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+                if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+                    getLogger().severe("Thread pool did not terminate!");
+                }
+            }
+        } catch (InterruptedException ex) {
+            getLogger().log(Level.SEVERE, "Error while shutting down thread pool!", ex);
+        }
     }
 
     private void loadMessages() {
